@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Laboratorio 30- Datos ordenados- Unir (merge) dos bases de datos
+
+Llamar libreria de data.table
+```{r}
+library(data.table)
+```
+
+Ubicar ruta datos a utilizar (base1)
+```{r}
+choose.files()
+```
+
+Ubicar ruta datos a utilizar (base2)
+```{r}
+choose.files()
+```
+
+Teniendo la ruta de las dos bases a unir se crea una variable por cada una
+```{r}
+green.products <- read.csv("COMPLETE_YEARS_PRODUCTS.csv")
+
+all.products <- read.csv("green products.csv")
+```
+
+Hacer que R lee los datos como un dataframe o tabla de datos
+```{r}
+green.products <- as.data.table(green.products)
+all.products <- as.data.table(all.products)
+```
+
+Unir ambas tablas o bases mediante las variables comunes (product_code). Visualizar resultado
+```{r}
+merge.allproducts = merge(all.products, green.products, by = "product_code")
+
+head(merge.allproducts)
+```
+
+Unir todo (no solo una variable o parte). Visualizar resultado
+```{r}
+merge.full = merge(all.products, green.products, by = "product_code", all.x = T)
+
+head(merge.full)
+```
+
+Exportar resultado obtenido como csv
+```{r}
+write.csv(merge.full, file = "merge.full.csv")
+```
